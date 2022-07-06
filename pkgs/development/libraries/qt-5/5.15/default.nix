@@ -53,6 +53,8 @@ let
       ./qtbase.patch.d/0009-qtbase-qtpluginpath.patch
       ./qtbase.patch.d/0010-qtbase-assert.patch
       ./qtbase.patch.d/0011-fix-header_module.patch
+    ] ++ lib.optional (stdenv.isDarwin && stdenv.isAarch64) [
+      ./qtbase.patch.d/0002-qtbase-mac-arm64.patch
     ];
     qtdeclarative = [ ./qtdeclarative.patch ];
     qtscript = [ ./qtscript.patch ];
@@ -119,7 +121,7 @@ let
         inherit bison cups harfbuzz libGL;
         withGtk3 = !stdenv.isDarwin; inherit dconf gtk3;
         inherit developerBuild decryptSslTraffic;
-        inherit (darwin.apple_sdk.frameworks) AGL AppKit ApplicationServices Carbon Cocoa CoreAudio CoreBluetooth
+        inherit (darwin.apple_sdk.frameworks) AGL AppKit ApplicationServices AVFoundation Carbon Cocoa CoreAudio CoreBluetooth
           CoreLocation CoreServices DiskArbitration Foundation OpenGL MetalKit IOKit;
         inherit (darwin) libobjc;
       };
