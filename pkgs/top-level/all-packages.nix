@@ -20595,7 +20595,7 @@ with pkgs;
   });
 
   # TODO bump to 5.15 on darwin once it's not broken; see #125548
-  qt5 =        if stdenv.hostPlatform.isDarwin then qt514 else qt515;
+  qt5 =        if stdenv.hostPlatform.isDarwin then qt515 else qt515;
   libsForQt5 = if stdenv.hostPlatform.isDarwin then libsForQt514 else libsForQt515;
 
   # plasma5Packages maps to the Qt5 packages set that is used to build the plasma5 desktop
