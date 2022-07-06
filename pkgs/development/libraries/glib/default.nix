@@ -92,7 +92,7 @@ stdenv.mkDerivation rec {
     ./split-dev-programs.patch
   ] ++ optional doCheck ./skip-timer-test.patch;
 
-  outputs = [ "bin" "out" "dev" "devdoc" ];
+  outputs = [ "bin" "out" "dev" ];
 
   setupHook = ./setup-hook.sh;
 
@@ -132,7 +132,6 @@ stdenv.mkDerivation rec {
   mesonFlags = [
     # Avoid the need for gobject introspection binaries in PATH in cross-compiling case.
     # Instead we just copy them over from the native output.
-    "-Dgtk_doc=${boolToString (stdenv.hostPlatform == stdenv.buildPlatform)}"
     "-Dnls=enabled"
     "-Ddevbindir=${placeholder "dev"}/bin"
   ];
@@ -167,8 +166,6 @@ stdenv.mkDerivation rec {
     # This file is *included* in gtk3 and would introduce runtime reference via __FILE__.
     sed '1i#line 1 "${pname}-${version}/include/glib-2.0/gobject/gobjectnotifyqueue.c"' \
       -i "$dev"/include/glib-2.0/gobject/gobjectnotifyqueue.c
-  '' + optionalString (stdenv.hostPlatform != stdenv.buildPlatform) ''
-    cp -r ${buildPackages.glib.devdoc} $devdoc
   '';
 
   checkInputs = [ tzdata desktop-file-utils shared-mime-info ];
