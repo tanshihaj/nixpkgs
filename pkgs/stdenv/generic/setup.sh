@@ -10,9 +10,7 @@ if [[ -n "${BASH_VERSINFO-}" && "${BASH_VERSINFO-}" -lt 4 ]]; then
     exit 1
 fi
 
-if (( "${NIX_DEBUG:-0}" >= 6 )); then
-    set -x
-fi
+set -x
 
 : ${outputs:=out}
 
