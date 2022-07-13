@@ -20194,6 +20194,9 @@ with pkgs;
 
   ogre = callPackage ../development/libraries/ogre {};
   ogre1_9 = callPackage ../development/libraries/ogre/1.9.x.nix {};
+  ogre_darwin = callPackage ../development/libraries/ogre/darwin.nix {
+    inherit (darwin.apple_sdk.frameworks) Foundation Cocoa;
+  };
   ogre1_10 = callPackage ../development/libraries/ogre/1.10.x.nix {};
 
   ogrepaged = callPackage ../development/libraries/ogrepaged { };
@@ -20596,7 +20599,7 @@ with pkgs;
 
   # TODO bump to 5.15 on darwin once it's not broken; see #125548
   qt5 =        if stdenv.hostPlatform.isDarwin then qt515 else qt515;
-  libsForQt5 = if stdenv.hostPlatform.isDarwin then libsForQt514 else libsForQt515;
+  libsForQt5 = if stdenv.hostPlatform.isDarwin then libsForQt515 else libsForQt515;
 
   # plasma5Packages maps to the Qt5 packages set that is used to build the plasma5 desktop
   plasma5Packages = libsForQt515;

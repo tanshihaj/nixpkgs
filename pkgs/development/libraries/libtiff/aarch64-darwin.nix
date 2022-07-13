@@ -12,11 +12,11 @@
 
 stdenv.mkDerivation rec {
   pname = "libtiff";
-  version = "4.2.0";
+  version = "4.4.0";
 
   src = fetchurl {
     url = "https://download.osgeo.org/libtiff/tiff-${version}.tar.gz";
-    sha256 = "1jrkjv0xya9radddn8idxvs2gqzp3l2b1s8knlizmn7ad3jq817b";
+    sha256 = "sha256-kXIjs3U4lZrKO3kNLXOqbmJraI4C3NonKuwkwvSYq+0=";
   };
 
   cmakeFlags = lib.optional stdenv.isDarwin "-DCMAKE_SKIP_BUILD_RPATH=OFF";
