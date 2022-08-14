@@ -1,4 +1,5 @@
 { lib
+, stdenv
 , buildPythonPackage
 , isPy27
 , fetchPypi
@@ -35,15 +36,12 @@ buildPythonPackage rec {
     ./pyqt5-fix-dbus-mainloop-support.patch
     # confirm license when installing via pyqt5_sip
     ./pyqt5-confirm-license.patch
+    # be more verbose
+    ./pyqt5-pyproject-verbose.patch
+  ] ++ lib.optionals (stdenv.isDarwin && stdenv.isAarch64) [
+    # bump minimal macos sdk upto 11.0 for aarch64-darwin
+    ./pyqt5-pyproject-darwin-min-sdk.patch
   ];
-
-  # be more verbose
-  postPatch = ''
-    cat >> pyproject.toml <<EOF
-    [tool.sip.project]
-    verbose = true
-    EOF
-  '';
 
   outputs = [ "out" "dev" ];
 

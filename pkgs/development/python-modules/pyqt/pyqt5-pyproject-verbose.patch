@@ -1,0 +1,10 @@
+diff --git a/pyproject.toml b/pyproject.toml
+--- a/pyproject.toml
++++ b/pyproject.toml
+@@ -14,3 +14,6 @@
+ license = "GPL v3"
+ description-file = "README"
+
++[tool.sip.project]
++verbose = true
++
